@@ -27,7 +27,7 @@ moongose.Promise = global.Promise;
 moongose.connect(dbConfig.url, {
    useNewUrlParser: true
 }).then(() => {
-   console.log('Db Connected');
+   console.log('MongoDB Connected!');
 }).catch((err) => {
    console.log('Could not connect to the database. Exiting now...', err);
    process.exit();
