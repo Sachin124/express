@@ -39,12 +39,60 @@ exports.create = (req, res) => {
 
 // update and save particular employee details
 exports.update = (req, res) => {
+    if (!req.body) {
+        return res.status(400).send({
+            message: 'Employee content cannot be empty!'
+        });
+    }
 
+    Employee.findByIdAndUpdate(req.params.empId, {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            address: req.body.address
+        }, {
+            new: true
+        })
+        .then(employee => {
+            if (!employee) {
+                return res.status(404).send({
+                    message: 'Employee Not Found! with Employee Id = ' + req.params.empId
+                });
+            }
+            res.send(employee);
+        }).catch(err => {
+            if (err.kind === 'ObjectId') {
+                return res.status(404).send({
+                    message: 'Employee Not Found! with Employee Id = ' + req.params.empId
+                });
+            }
+            return res.status(500).send({
+                message: 'Error Updating Employee with Employee Id = ' + req.params.empId
+            });
+        });
 };
 
 // delete particular employee details
 exports.delete = (req, res) => {
+    Employee.findByIdAndRemove(req.params.empId)
+        .then(employee => {
+            if (!employee) {
+                return res.status(404).send({
+                    message: "Employee not found with id = " + req.params.empId
+                });
+            }
+            res.send(employee);
+        }).catch(err => {
+            console.log(err);
+            if (err.kind === 'ObjectId') {
+                return res.status(404).send({
+                    message: "Employee not found with id = " + req.params.empId
+                });
+            }
 
+            return res.status(500).send({
+                message: "Error retrieving note with id = " + req.params.empId
+            });
+        });
 };
 
 // view all employees details
@@ -59,7 +107,7 @@ exports.view = (req, res) => {
 
 // view particular employee details
 exports.viewById = (req, res) => {
-    
+
     Employee.findById(req.params.empId)
         .then(employee => {
             if (!employee) {
@@ -67,7 +115,7 @@ exports.viewById = (req, res) => {
                     message: "Employee not found with id = " + req.params.empId
                 });
             }
-                res.send(employee);   
+            res.send(employee);
         }).catch(err => {
             console.log(err);
             if (err.kind === 'ObjectId') {
