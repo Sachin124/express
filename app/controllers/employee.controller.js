@@ -3,6 +3,17 @@
  *   All rights reserved.
  */
 
+ /*
+ Following Methods are used for CRUD operation in MongoDB
+    
+        ~ Mongoose save()
+        ~ Mongoose find()
+        ~ Mongoose findById()
+        ~ Mongoose findByIdAndUpdate()
+        ~ Mongoose findByIdAndRemove()
+  
+ */
+
 const Employee = require('../model/employee.model');
 
 // create and save new employee details
