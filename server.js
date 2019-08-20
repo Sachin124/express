@@ -3,31 +3,39 @@
  *   All rights reserved.
  */
 
- const express = require('express');
+const express = require('express');
 
- const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 
+const app = express();
 
- const app = express();
+// parse application/x-www-form-urlencoded
 
- app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+   extended: true
+}));
 
- const mongoose = require('mongoose');
- mongoose.Promise = global.Promise;
+app.use(bodyParser.json());
 
- const dbConfig = require('./config/database.config');
- mongoose.connect(dbConfig.url, {useNewUrlParser: true}).then(()=>{
-    console.log('Successfully connected to the database');    
- }).catch(err=>{
-     console.log('Could not connect to database. Exiting now...', err);
-     process.exit();     
- });
+const moongose = require('mongoose');
 
- app.get('/', (req,res)=>{
-    res.json('Hello Good Morning!');
- });
+const dbConfig = require('./config/database.config');
+
+moongose.Promise = global.Promise;
 
 
- app.listen(3000, ()=>{
-    console.log('Server is running on port 3000');    
- });
+moongose.connect(dbConfig.url, {
+   useNewUrlParser: true
+}).then(() => {
+   console.log('Db Connected');
+}).catch((err) => {
+   console.log('Could not connect to the database. Exiting now...', err);
+   process.exit();
+});
+
+require('./app/routes/employee.routes')(app);
+
+
+app.listen(3000, () => {
+   console.log('Server is running on port 3000');
+});
