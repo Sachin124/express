@@ -107,9 +107,7 @@ exports.delete = (req, res) => {
 };
 
 // view all employees details
-exports.view = (req, res) => {
-    console.log('In');
-    
+exports.view = (req, res) => {    
     Employee.find()
         .then(employees => {
             res.send(employees);

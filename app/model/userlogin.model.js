@@ -31,7 +31,7 @@ userSchema.findById = function (cb) {
 const User = mongoose.model('Users', userSchema);
 
 exports.findByEmail = (email) => {
-    return User.find({email: "medsfsdfanfdsasfsdfsffsdfss@sachin.com"});
+    return User.find({email: email});
 };
 exports.findById = (id) => {
     return User.findById(id)

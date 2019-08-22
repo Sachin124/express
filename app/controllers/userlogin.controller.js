@@ -26,22 +26,22 @@ exports.insertAdmin = (req, res) => {
     req.body.permissionLevel = 4;
 
     UserModel.findByEmail(req.body.email)
-        .then(result => {
-            console.log(result);
-            // if (result.length !== 0) {
-            //     res.status(404).send(` The email address ${req.body.email} is already taken!`);
-            // } else {
-            //     UserModel.createUser(req)
-            //         .then(result => {
-            //             res.status(201).send({
-            //                 id: result._id
-            //             });
-            //         });
-            // }
-            res.status(404).send(result);
-        }).catch(err => {
-            console.log(err);
+        .then((result) => {
+            if (result.length != 0) {
+                res.status(200).send(`${req.body.email} Email address was already taken!`);
+            } else {
+                // res.status(200).send('no result found');
+                UserModel.createUser(req.body)
+                    .then((result) => {
+                        res.status(201).send({
+                            id: result._id
+                        });
+                    });
+            }
         });
+
+
+
 };
 
 exports.list = (req, res) => {
