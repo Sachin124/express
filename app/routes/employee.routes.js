@@ -34,7 +34,11 @@
     app.delete('/employee/:empId', employee.delete);
 
     // To view all employees details
-    app.get('/employee', employee.view);
+    app.get('/employee',  [
+        ValidationMiddleware.validJWTNeeded,
+        PermissionMiddleware.minimumPermissionLevelRequired(PAID),
+        employee.view
+    ]);
 
     // To view particular employee details
     app.get('/employee/:empId', employee.viewById);
@@ -45,6 +49,12 @@
     app.post('/users', [
         UsersController.insert
     ]);
+
+    app.post('/create-admin', [
+        UsersController.insertAdmin
+    ]);
+
+
     app.get('/users', [
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(PAID),

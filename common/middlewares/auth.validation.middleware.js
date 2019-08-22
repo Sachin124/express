@@ -1,3 +1,8 @@
+/*
+ *   Copyright (c) 2019 Created By: Sachin S. Bahegavankar
+ *   All rights reserved.
+ */
+
 const jwt = require('jsonwebtoken'),
     secret = require('../config/env.config.js').jwt_secret,
     crypto = require('crypto');
@@ -24,6 +29,8 @@ exports.validRefreshNeeded = (req, res, next) => {
 
 
 exports.validJWTNeeded = (req, res, next) => {
+    console.log('Hello');
+    
     if (req.headers['authorization']) {
         try {
             let authorization = req.headers['authorization'].split(' ');

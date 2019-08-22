@@ -1,3 +1,8 @@
+/*
+ *   Copyright (c) 2019 Created By: Sachin S. Bahegavankar
+ *   All rights reserved.
+ */
+
 const jwt = require('jsonwebtoken'),
     secret = require('../config/env.config')['jwt_secret'];
 
@@ -7,6 +12,8 @@ exports.minimumPermissionLevelRequired = (required_permission_level) => {
     return (req, res, next) => {
         let user_permission_level = parseInt(req.jwt.permissionLevel);
         let userId = req.jwt.userId;
+        console.log(user_permission_level);
+
         if (user_permission_level & required_permission_level) {
             return next();
         } else {
@@ -21,7 +28,7 @@ exports.onlySameUserOrAdminCanDoThisAction = (req, res, next) => {
     let userId = req.jwt.userId;
     if (req.params && req.params.userId && userId === req.params.userId) {
         return next();
-    } else {
+    } else {      
         if (user_permission_level & ADMIN_PERMISSION) {
             return next();
         } else {
