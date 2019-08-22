@@ -108,6 +108,8 @@ exports.delete = (req, res) => {
 
 // view all employees details
 exports.view = (req, res) => {
+    console.log('In');
+    
     Employee.find()
         .then(employees => {
             res.send(employees);

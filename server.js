@@ -2,40 +2,38 @@
  *   Copyright (c) 2019 Created By: Sachin S. Bahegavankar
  *   All rights reserved.
  */
-
 const express = require('express');
 
 const bodyParser = require('body-parser');
 
+const mongoose = require('mongoose');
+
 const app = express();
-
-// parse application/x-www-form-urlencoded
-
-app.use(bodyParser.urlencoded({
-   extended: true
-}));
-
-app.use(bodyParser.json());
-
-const moongose = require('mongoose');
 
 const dbConfig = require('./config/database.config');
 
-moongose.Promise = global.Promise;
+const AuthorizationRouter = require('./authorization/routes.config');
 
+const UsersRouter = require('./app/routes/employee.routes');
 
-moongose.connect(dbConfig.url, {
-   useNewUrlParser: true
-}).then(() => {
-   console.log('MongoDB Connected!');
-}).catch((err) => {
-   console.log('Could not connect to the database. Exiting now...', err);
+app.use(bodyParser.urlencoded({extended:true}));
+
+app.use(bodyParser.json());
+
+mongoose.Promise = global.Promise;
+
+app.listen(3000, ()=>{
+   console.log('Server is running on port 3000');   
+});
+
+mongoose.connect(dbConfig.url, {useNewUrlParser:true}).then(()=>{
+console.log('MongoDB Connected!');
+}).catch(err=>{
+   console.log(err);   
    process.exit();
 });
 
-require('./app/routes/employee.routes')(app);
+AuthorizationRouter.routesConfig(app);
+UsersRouter.routesConfig(app);
 
-
-app.listen(3000, () => {
-   console.log('Server is running on port 3000');
-});
+// require('./app/routes/employee.routes')(app);
