@@ -18,7 +18,12 @@
     const PAID = config.permissionLevels.PAID_USER;
     const FREE = config.permissionLevels.NORMAL_USER;
 
+    const upload = require('../controllers/multer.upload');
+
     exports.routesConfig = (app)=> {
+
+    // To Upload Employee Profile Picture
+    app.post('/employee-profile', upload.single('avatar'), employee.profile);
 
     // To create new employee row
     app.post('/employee', [

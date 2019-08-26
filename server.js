@@ -16,6 +16,9 @@ const AuthorizationRouter = require('./authorization/routes.config');
 
 const UsersRouter = require('./app/routes/employee.routes');
 
+global.__basedir = __dirname;
+
+
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(bodyParser.json());

@@ -16,7 +16,13 @@
 
 const Employee = require('../model/employee.model');
 
+
 // create and save new employee details
+
+exports.profile = (req,res,next)=>{
+	res.send('File uploaded successfully! -> filename = ' + req.file.filename);
+};
+
 exports.create = (req, res) => {
 
     // validate a request
