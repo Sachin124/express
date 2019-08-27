@@ -20,6 +20,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [LayoutComponent, NavbarComponent, FooterComponent, SidebarComponent],
@@ -33,6 +34,7 @@ import { RouterModule } from '@angular/router';
     MatSidenavModule,
     MatCheckboxModule,
     FormsModule,
+    MatListModule,
     RouterModule
   ],
   // exports: [LayoutComponent]

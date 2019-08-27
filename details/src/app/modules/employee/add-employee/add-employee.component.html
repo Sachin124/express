@@ -1,1 +1,37 @@
-<p>add-employee works!</p>
+<div class="container-fluid">
+  <form #empForm="ngForm" (ngSubmit)="submit(empForm)">
+    <div class="row">
+      <div class="col-6">
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput [(ngModel)]="employeeData.firstName" name="firstName" placeholder="First Name">
+            <mat-icon matSuffix>account_circle</mat-icon>
+          </mat-form-field>
+        </p>
+
+      </div>
+      <div class="col-6">
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput [(ngModel)]="employeeData.lastName" name="lastName" placeholder="Last Name">
+            <mat-icon matSuffix>scatter_plot</mat-icon>
+          </mat-form-field>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field class="example-full-width">
+          <mat-icon matSuffix>location_searching</mat-icon>
+          <textarea matInput [(ngModel)]="employeeData.address" name="address" placeholder="Address"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="">
+      <button type="submit" class="float-right btn btn-md btn-rose">submit</button>
+    </div>
+  </form>
+</div>

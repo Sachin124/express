@@ -1,13 +1,17 @@
-
-    <mat-toolbar color="primary">
-      <span class="fill-remaining-space"></span>
-      <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-        <button mat-button routerLink="/products">Products</button>
-        <button mat-button routerLink="/dashboard">Dashboard</button>
-      </div>
-    </mat-toolbar>
-    <mat-menu x-position="before" #menu="matMenu">
-      <button mat-menu-item routerLink="/products">Products</button>
-      <button mat-menu-item routerLink="/dashboard">Dashboard</button>
-      <!--<button mat-menu-item>Help</button>-->
-    </mat-menu>
+<mat-toolbar color="primary">
+  <button
+    type="button"
+    aria-label="Toggle sidenav"
+    mat-icon-button
+    (click)="drawer.toggle()"
+    *ngIf="(isHandset | async)!.matches">
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+  <div class="example-sidenav-content">
+      <i class="material-icons" style="cursor: pointer" (click)="toggle()">
+          keyboard_backspace
+          </i>
+    </div>
+  <span>Application Title</span>
+  
+</mat-toolbar>

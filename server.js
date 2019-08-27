@@ -16,8 +16,11 @@ const AuthorizationRouter = require('./authorization/routes.config');
 
 const UsersRouter = require('./app/routes/employee.routes');
 
+const cors = require('cors');
+
 global.__basedir = __dirname;
 
+app.use(cors());
 
 app.use(bodyParser.urlencoded({extended:true}));
 

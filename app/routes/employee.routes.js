@@ -26,11 +26,8 @@
     app.post('/employee-profile', upload.single('avatar'), employee.profile);
 
     // To create new employee row
-    app.post('/employee', [
-        ValidationMiddleware.validJWTNeeded,
-        PermissionMiddleware.minimumPermissionLevelRequired(PAID),
-        employee.create
-    ]);
+    app.post('/employee',
+        employee.create);
 
     // To edit particular employee details
     app.put('/employee/:empId', employee.update);
@@ -39,11 +36,14 @@
     app.delete('/employee/:empId', employee.delete);
 
     // To view all employees details
-    app.get('/employee',  [
-        ValidationMiddleware.validJWTNeeded,
-        PermissionMiddleware.minimumPermissionLevelRequired(PAID),
-        employee.view
-    ]);
+    // app.get('/employee',  [
+    //     ValidationMiddleware.validJWTNeeded,
+    //     PermissionMiddleware.minimumPermissionLevelRequired(PAID),
+    //     employee.view
+    // ]);
+
+      // To view all employees details
+      app.get('/employee',  employee.view);
 
     // To view particular employee details
     app.get('/employee/:empId', employee.viewById);

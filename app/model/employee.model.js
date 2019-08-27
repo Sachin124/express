@@ -8,7 +8,8 @@ const moongose = require('mongoose');
 const employeeSchema = moongose.Schema({
     firstName: String,
     lastName: String,
-    address: String
+    address: String,
+    profile_photo: String
 }, {
     timestampls: true
 });

@@ -3,7 +3,9 @@
  *   All rights reserved.
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,9 +14,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
   opened: boolean = true;
-  constructor() { }
+  @ViewChild('drawer', {static:true}) input; 
+  isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
+  constructor(private breakpointObserver: BreakpointObserver) {
+    // 
+    
+  }
+
 
   ngOnInit() {
   }
-
+  public toggleSidebar(){   
+    this.input.toggle();
+  }
 }

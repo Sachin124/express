@@ -3,24 +3,26 @@
  *   All rights reserved.
  */
 
- /*
- Following Methods are used for CRUD operation in MongoDB
-    
-        ~ Mongoose save()
-        ~ Mongoose find()
-        ~ Mongoose findById()
-        ~ Mongoose findByIdAndUpdate()
-        ~ Mongoose findByIdAndRemove()
-  
- */
+/*
+Following Methods are used for CRUD operation in MongoDB
+   
+       ~ Mongoose save()
+       ~ Mongoose find()
+       ~ Mongoose findById()
+       ~ Mongoose findByIdAndUpdate()
+       ~ Mongoose findByIdAndRemove()
+ 
+*/
 
 const Employee = require('../model/employee.model');
 
-
 // create and save new employee details
 
-exports.profile = (req,res,next)=>{
-	res.send('File uploaded successfully! -> filename = ' + req.file.filename);
+exports.profile = (req, res, next) => {
+    console.log(req);
+
+    res.send('File uploaded successfully! -> filename = ' + req.file.filename);
+
 };
 
 exports.create = (req, res) => {
@@ -37,7 +39,8 @@ exports.create = (req, res) => {
     const employee = new Employee({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        address: req.body.address
+        address: req.body.address,
+        profile_photo: `${__basedir}/uploads/${req.body.profile_photo}`
     });
 
     // save employee details in the database
@@ -65,7 +68,8 @@ exports.update = (req, res) => {
     Employee.findByIdAndUpdate(req.params.empId, {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            address: req.body.address
+            address: req.body.address,
+            profile_photo: req.body.profile_photo
         }, {
             new: true
         })
@@ -113,7 +117,7 @@ exports.delete = (req, res) => {
 };
 
 // view all employees details
-exports.view = (req, res) => {    
+exports.view = (req, res) => {
     Employee.find()
         .then(employees => {
             res.send(employees);

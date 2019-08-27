@@ -1,4 +1,4 @@
-<mat-drawer-container class="example-container" autosize>
+<!-- <mat-drawer-container class="example-container" autosize>
         <mat-drawer #drawer class="example-sidenav" mode="side">
           <p (click)="drawer.toggle()">Auto-resizing sidenav</p>
           <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
@@ -15,6 +15,28 @@
           </button>
         </div>
       
-      </mat-drawer-container>
+      </mat-drawer-container> -->
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true" [attr.role]="isHandset ? 'dialog' : 'navigation'"
+    [mode]="(isHandset | async)!.matches ? 'over' : 'side'" [opened]="!(isHandset | async)!.matches">
+    <mat-toolbar color="primary">Menu</mat-toolbar>
 
-      
+    <mat-nav-list>
+      <a mat-list-item routerLink="/dashboard">Dashboard</a>
+      <a mat-list-item routerLink="/employee/view">Employees</a>
+      <a mat-list-item href="/third-page">Third Page</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <app-navbar (voted)="displayInput($event)"></app-navbar>
+    <div class="main">
+      <div class="container-fluid">
+        <div class="col-12">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
