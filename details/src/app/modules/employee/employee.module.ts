@@ -18,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { NgxFileDropModule } from 'ngx-file-drop';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     ModalModule.forRoot(),
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    NgxFileDropModule
   ],
   
 })

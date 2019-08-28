@@ -24,6 +24,6 @@ export class NavbarComponent implements OnInit {
   toggle(){
     console.log('yes');
     
-    this.sidebar.toggleSidebar()
+    this.sidebar.toggleSidebar();
   }
 }

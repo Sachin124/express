@@ -19,9 +19,12 @@ const Employee = require('../model/employee.model');
 // create and save new employee details
 
 exports.profile = (req, res, next) => {
-    console.log(req);
-
-    res.send('File uploaded successfully! -> filename = ' + req.file.filename);
+      res.status(200).send({
+        status:1,
+        message:'File uploaded successfully!',
+        filename :  req.file.filename
+        });
+    // res.send('File uploaded successfully! -> filename = ' + req.file.filename);
 
 };
 
@@ -58,14 +61,14 @@ exports.create = (req, res) => {
 };
 
 // update and save particular employee details
-exports.update = (req, res) => {
+exports.update = (req, res) => {    
     if (!req.body) {
         return res.status(400).send({
             message: 'Employee content cannot be empty!'
         });
     }
 
-    Employee.findByIdAndUpdate(req.params.empId, {
+    Employee.findByIdAndUpdate(req.body._id, {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             address: req.body.address,
@@ -76,18 +79,18 @@ exports.update = (req, res) => {
         .then(employee => {
             if (!employee) {
                 return res.status(404).send({
-                    message: 'Employee Not Found! with Employee Id = ' + req.params.empId
+                    message: 'Employee Not Found! with Employee Id = ' + req.body._id
                 });
             }
             res.send(employee);
         }).catch(err => {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({
-                    message: 'Employee Not Found! with Employee Id = ' + req.params.empId
+                    message: 'Employee Not Found! with Employee Id = ' + req.body._id
                 });
             }
             return res.status(500).send({
-                message: 'Error Updating Employee with Employee Id = ' + req.params.empId
+                message: 'Error Updating Employee with Employee Id = ' + req.body._id
             });
         });
 };

@@ -22,9 +22,23 @@ export class EmployeeService {
   constructor(private httpClient: HttpClient) {}
 
   getEmployeeData(): Observable < any > {
-    return this.httpClient.get < any > (this.baseUrl + `employee`);
+    return this.httpClient.get < any > (`${this.baseUrl}employee`);
   }
+
+
   addEmployee(empData: any): Observable < any > {
-    return this.httpClient.post < any > (this.baseUrl + `employee`, empData)
+    return this.httpClient.post < any > (`${this.baseUrl}employee`, empData);
+  }
+
+  deleteEmployee(empId: number): Observable < any > {
+    return this.httpClient.delete < any > (`${this.baseUrl}employee/${empId}`);
+  }
+
+  updateEmployee(updatedData): Observable < any > {
+    return this.httpClient.put < any > (`${this.baseUrl}employee`, updatedData);
+  }
+
+  uploadProfile(profileData):Observable<any>{
+    return this.httpClient.post<any>(`${this.baseUrl}employee-profile`, profileData)
   }
 }

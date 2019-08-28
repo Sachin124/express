@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <form #empForm="ngForm" (ngSubmit)="submit(empForm)">
+  <form #empForm="ngForm">
     <div class="row">
       <div class="col-6">
         <p>
@@ -30,8 +30,23 @@
       </div>
     </div>
 
+    <div class="row">
+      <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" 
+      (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+          <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+            Optional custom content that replaces the the entire default content.
+          </ng-template>
+      </ngx-file-drop>
+    </div>
+    <button class="btn btn-md btn-rose" type="button" (click)="openFileSelector()">Browse Files</button>
+
+    <div class="row justify-content-center">
+      <button class="btn btn-md btn-primary" (click)="uploadProfilePhoto()">Upload Now</button>
+    </div>
     <div class="">
-      <button type="submit" class="float-right btn btn-md btn-rose">submit</button>
+      <button *ngIf="!particularEmpData" type="submit" class="float-right btn btn-md btn-rose" (click)="submit(empForm)">submit</button>
+      <button *ngIf="particularEmpData" type="submit" class="float-right btn btn-md btn-rose" (click)="update(empForm)">update</button>
+
     </div>
   </form>
 </div>

@@ -30,7 +30,7 @@
         employee.create);
 
     // To edit particular employee details
-    app.put('/employee/:empId', employee.update);
+    app.put('/employee', employee.update);
 
     // To delete particular employee details
     app.delete('/employee/:empId', employee.delete);

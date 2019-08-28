@@ -36,6 +36,7 @@ export class ViewEmployeeComponent implements OnInit {
     static: true
   }) paginator: MatPaginator;
   modalRef: BsModalRef;
+  particularEmpData: any;
   constructor(private dataService: EmployeeService, private modalService: BsModalService) {}
 
   ngOnInit() {
@@ -50,7 +51,12 @@ export class ViewEmployeeComponent implements OnInit {
       console.log(error);
     })
   }
-  openModal(template: TemplateRef < any > ) {
+  openModal(template: TemplateRef < any > , empData): void {
+    if (empData) {
+      this.particularEmpData = empData;
+    } else {
+      this.particularEmpData = null;
+    }
     this.modalRef = this.modalService.show(template);
   }
 
@@ -65,13 +71,30 @@ export class ViewEmployeeComponent implements OnInit {
     })
   }
 
-  editEmp(empData):void{
-    console.log(empData);
-    
+
+  delete(empId): void {
+    console.log(empId);
+    this.dataService.deleteEmployee(empId).subscribe(res => {
+      console.log(res);
+      this.employeeList();
+    }, error => {
+      console.log(error);
+    })
   }
 
-  delete(empId):void{
-    console.log(empId);
-    
+  updateEmployeeDetails(updatedData) {
+    updatedData = {
+      _id: this.particularEmpData._id,
+      address: updatedData.address,
+      firstName: updatedData.firstName,
+      lastName: updatedData.lastName,
+    }
+    this.dataService.updateEmployee(updatedData).subscribe(res => {
+      console.log(res);
+      this.employeeList();
+      this.modalRef.hide();
+    }, error => {
+      console.log(error);
+    })
   }
 }

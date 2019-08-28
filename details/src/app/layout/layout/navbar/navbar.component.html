@@ -1,11 +1,12 @@
 <mat-toolbar color="primary">
   <button
     type="button"
+    class="btn btn-sm btn-white"
     aria-label="Toggle sidenav"
     mat-icon-button
-    (click)="drawer.toggle()"
+    (click)="toggle()"
     *ngIf="(isHandset | async)!.matches">
-    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    <mat-icon matSuffix>menu</mat-icon>
   </button>
   <div class="example-sidenav-content">
       <i class="material-icons" style="cursor: pointer" (click)="toggle()">
