@@ -13,8 +13,14 @@ import {
 import {
   NgForm
 } from '@angular/forms';
-import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
-import { EmployeeService } from '../service/employee.service';
+import {
+  NgxFileDropEntry,
+  FileSystemFileEntry,
+  FileSystemDirectoryEntry
+} from 'ngx-file-drop';
+import {
+  EmployeeService
+} from '../service/employee.service';
 
 @Component({
   selector: 'add-employee',
@@ -25,35 +31,38 @@ export class AddEmployeeComponent implements OnInit {
   employeeData: any = {};
   @Output() addEmployee: EventEmitter < any > = new EventEmitter();
   @Input() particularEmpData: any;
-  @Output() updateEmployeeDetails:EventEmitter<any> = new EventEmitter();
+  @Output() updateEmployeeDetails: EventEmitter < any > = new EventEmitter();
   formData = new FormData()
   public files: NgxFileDropEntry[] = [];
+  imagePath: string;
 
-  constructor(private dataService:EmployeeService) {}
+  constructor(private dataService: EmployeeService) {}
 
   ngOnInit() {
     console.log(this.particularEmpData);
     if (this.particularEmpData) {
       this.employeeData = this.particularEmpData;
+      this.imagePath = this.employeeData.profile_photo;
     } else {
       this.employeeData = {};
+      this.imagePath = '';
     }
   }
 
   public dropped(files: NgxFileDropEntry[]) {
     this.files = files;
+    this.imagePath = '';
     for (const droppedFile of files) {
- 
+
       // Is it a file?
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
- 
+
           // Here you can access the real file
           console.log(droppedFile.relativePath, file);
- // You could upload it like this:
-  this.formData.append('avatar', file, droppedFile.relativePath)
-
+          // You could upload it like this:
+          this.formData.append('avatar', file, droppedFile.relativePath)
           /**
           
  
@@ -67,7 +76,7 @@ export class AddEmployeeComponent implements OnInit {
             // Sanitized logo returned from backend
           })
           **/
- 
+
         });
       } else {
         // It was a directory (empty directories are added, otherwise only files)
@@ -77,27 +86,29 @@ export class AddEmployeeComponent implements OnInit {
     }
   }
 
-  uploadProfilePhoto(){
-    this.dataService.uploadProfile(this.formData).subscribe(res=>{
-      console.log(res);      
-    },error=>{
-      console.log(error);      
+  uploadProfilePhoto() {
+    this.imagePath = '';
+    this.dataService.uploadProfile(this.formData).subscribe(res => {
+      this.imagePath = res.filename;
+    }, error => {
+      console.log(error);
     })
   }
-  public fileOver(event){
+  public fileOver(event) {
     console.log(event);
   }
- 
-  public fileLeave(event){
+
+  public fileLeave(event) {
     console.log(event);
   }
 
   submit(formValue: NgForm) {
-    console.log(formValue);
+    formValue.value.profile_photo = this.imagePath;
     this.addEmployee.emit(formValue.value);
   }
 
-  update(formValue:NgForm):void{
+  update(formValue: NgForm): void {
+    formValue.value.profile_photo = this.imagePath;
     this.updateEmployeeDetails.emit(formValue.value);
   }
 }

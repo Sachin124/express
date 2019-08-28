@@ -22,6 +22,8 @@ import {
   BsModalService,
   BsModalRef
 } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-view-employee',
@@ -37,7 +39,7 @@ export class ViewEmployeeComponent implements OnInit {
   }) paginator: MatPaginator;
   modalRef: BsModalRef;
   particularEmpData: any;
-  constructor(private dataService: EmployeeService, private modalService: BsModalService) {}
+  constructor(private dataService: EmployeeService, private modalService: BsModalService,private toastr: ToastrService) {}
 
   ngOnInit() {
     this.employeeList();
@@ -59,11 +61,10 @@ export class ViewEmployeeComponent implements OnInit {
     }
     this.modalRef = this.modalService.show(template);
   }
-
   addEmployee(empValue): void {
     console.log(empValue);
     this.dataService.addEmployee(empValue).subscribe(res => {
-      console.log(res);
+      this.toastr.success('Success', 'Employee added successfully!');
       this.employeeList();
       this.modalRef.hide();
     }, error => {
@@ -76,6 +77,7 @@ export class ViewEmployeeComponent implements OnInit {
     console.log(empId);
     this.dataService.deleteEmployee(empId).subscribe(res => {
       console.log(res);
+      this.toastr.error('Success', 'Employee deleted successfully!');
       this.employeeList();
     }, error => {
       console.log(error);
@@ -88,9 +90,12 @@ export class ViewEmployeeComponent implements OnInit {
       address: updatedData.address,
       firstName: updatedData.firstName,
       lastName: updatedData.lastName,
+      profile_photo:updatedData.profile_photo
     }
     this.dataService.updateEmployee(updatedData).subscribe(res => {
       console.log(res);
+      this.toastr.info('Success', 'Employee updated successfully!');
+
       this.employeeList();
       this.modalRef.hide();
     }, error => {

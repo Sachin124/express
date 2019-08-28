@@ -19,6 +19,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { NgxFileDropModule } from 'ngx-file-drop';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -34,8 +35,14 @@ import { NgxFileDropModule } from 'ngx-file-drop';
     ModalModule.forRoot(),
     MatIconModule,
     MatInputModule,
-    NgxFileDropModule
-  ],
+    NgxFileDropModule,
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+      progressBar:true,
+    })
+  ]
   
 })
 export class EmployeeModule { }
