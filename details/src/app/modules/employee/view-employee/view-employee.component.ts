@@ -44,6 +44,7 @@ export class ViewEmployeeComponent implements OnInit {
   ngOnInit() {
     this.employeeList();
   }
+  
   employeeList() {
     this.dataService.getEmployeeData().subscribe(res => {
       this.dataSource = new MatTableDataSource(res.reverse());
@@ -53,6 +54,12 @@ export class ViewEmployeeComponent implements OnInit {
       console.log(error);
     })
   }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+
   openModal(template: TemplateRef < any > , empData): void {
     if (empData) {
       this.particularEmpData = empData;

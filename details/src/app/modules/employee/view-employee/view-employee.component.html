@@ -2,8 +2,14 @@
   <div class="float-right">
     <button type="button" class="btn btn-primary btn-sm btn-margin" (click)="openModal(template, null)">Add</button>
   </div>
+<div class="row justify-content-center">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+  </mat-form-field>
+</div>
+ 
 
-
+  
   <table mat-table [dataSource]="dataSource">
 
     <!-- Position Column -->
